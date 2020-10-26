@@ -1,11 +1,12 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
+import Loading from './components/Loading';
 import reportWebVitals from './reportWebVitals';
 const App = React.lazy(() => import('./App'));
 ReactDOM.render(
   <React.StrictMode>
-    <Suspense fallback={<div>loading...</div>}>
+    <Suspense fallback={<Loading />}>
       <App />
     </Suspense>
   </React.StrictMode>,

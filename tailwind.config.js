@@ -4,7 +4,7 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: {
-    enabled: true,
+    enabled: false,
     mode: 'all',
     content: ['./src/**/*.jsx', './src/**/*.js', 'public/**/*.html']
   },
