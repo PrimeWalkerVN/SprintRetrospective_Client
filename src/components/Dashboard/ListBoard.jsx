@@ -10,20 +10,21 @@ const ListBoard = () => {
 
   useEffect(() => {
     const getBoards = async () => {
+      setIsLoading(true);
       try {
         const boardsRes = await boardsApi.getBoards();
         setBoards(boardsRes.data);
       } catch (err) {
         Notification('error', 'error', err.message);
       }
+      setIsLoading(false);
     };
-    setIsLoading(true);
+
     getBoards();
-    setIsLoading(false);
   }, []);
   return (
     <div className="w-full">
-      <div>{isLoading && <Loading />}</div>
+      {isLoading && <Loading />}
       <List
         grid={{ gutter: 16, column: 4 }}
         pagination={{ defaultPageSize: 8 }}
