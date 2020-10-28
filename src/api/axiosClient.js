@@ -1,8 +1,7 @@
 import axios from 'axios';
 import queryString from 'query-string';
-
 const axiosClient = axios.create({
-  baseURL: 'https://sprintrestrospectiveapi.herokuapp.com/api/v1',
+  baseURL: process.env.REACT_APP_API_LOCAL,
   headers: {
     'content-type': 'application/json'
   },
@@ -10,10 +9,15 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async config => {
+  const customHeaders = {};
+  const accessToken = localStorage.getItem('access_token');
+  if (accessToken) {
+    customHeaders.Authorization = 'Bearer ' + accessToken;
+  }
   return {
     ...config,
     headers: {
-      //...customHeaders,  // auto attach token
+      ...customHeaders, // auto attach token
       ...config.headers // but you can override for some requests
     }
   };

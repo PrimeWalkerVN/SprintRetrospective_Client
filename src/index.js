@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import './App.css';
 import Loading from './components/Loading';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './redux/store/store';
+require('dotenv').config();
 const App = React.lazy(() => import('./App'));
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<Loading />}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </Suspense>
   </React.StrictMode>,
   document.getElementById('root')

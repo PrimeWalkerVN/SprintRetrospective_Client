@@ -2,7 +2,7 @@ import { Button, Card } from 'antd';
 import React from 'react';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 const Board = props => {
-  const { item } = props;
+  const { item, deleteBoardSubmit } = props;
   return (
     <Card
       title={item.name}
@@ -16,8 +16,7 @@ const Board = props => {
           <span className="font-bold pr-2">Created at:</span> {item.createdAt}
         </div>
         <div>
-          <span className="font-bold pr-2">Lists number:</span>{' '}
-          {item.lists.length}
+          <span className="font-bold pr-2">Lists number:</span> {item.lists.length}
         </div>
         <div className="flex flex-row justify-between pt-4 w-full self-center">
           <Button
@@ -33,6 +32,7 @@ const Board = props => {
             size="small"
             className="flex items-center py-3"
             icon={<DeleteOutlined />}
+            onClick={() => deleteBoardSubmit(item._id)}
           >
             Delete
           </Button>
