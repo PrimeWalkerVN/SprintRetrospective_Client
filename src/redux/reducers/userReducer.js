@@ -9,7 +9,6 @@ const userSlice = createSlice({
   reducers: {
     setUser: (state, action) => {
       state.user = action.payload.user;
-      localStorage.setItem('user', JSON.stringify(action.payload.user));
       const token = action.payload.token;
       localStorage.setItem('access_token', token);
       state.logged = true;
@@ -18,10 +17,14 @@ const userSlice = createSlice({
       state.user = {};
       state.logged = false;
       localStorage.clear();
+    },
+    setUserLogged: (state, action) => {
+      state.user = action.payload.user;
+      state.logged = true;
     }
   }
 });
 
 const { reducer: userReducer, actions } = userSlice;
-export const { setUser, logout } = actions;
+export const { setUser, setUserLogged, logout } = actions;
 export default userReducer;

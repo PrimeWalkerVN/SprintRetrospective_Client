@@ -57,7 +57,7 @@ const DashBoard = () => {
   };
   return (
     <header className="w-full">
-      <Header name="Sprint Retrospective" logoutHandler={logoutHandler} />
+      <Header name="Sprint Retrospective" username={user.fullName} logoutHandler={logoutHandler} />
       <div className="w-full pt-12 flex flex-col">
         <div className="text-center text-4xl text-purple-800">MY BOARDS</div>
         <div className="flex flex-row w-full justify-between px-10 pt-10">
