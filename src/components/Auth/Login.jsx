@@ -87,12 +87,12 @@ const Login = () => {
         </Form>
         <div className="flex pb-5">
           <button className="w-12 h-12 mr-5">
-            <a href={`${process.env.REACT_APP_API_LOCAL}/users/auth/facebook`}>
+            <a href={`${process.env.REACT_APP_API}/users/auth/facebook`}>
               <img src={facebookLogo} alt="facebook logo"></img>
             </a>
           </button>
           <button className="w-12 h-12">
-            <a href={`${process.env.REACT_APP_API_LOCAL}/users/auth/google`}>
+            <a href={`${process.env.REACT_APP_API}/users/auth/google`}>
               <img src={googleLogo} alt="google logo"></img>
             </a>
           </button>
