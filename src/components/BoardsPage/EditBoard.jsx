@@ -25,7 +25,7 @@ const EditBoard = props => {
         Edit
       </div>
       <Modal
-        title="Edit Card"
+        title="Edit Board"
         centered
         destroyOnClose
         visible={editModal}
