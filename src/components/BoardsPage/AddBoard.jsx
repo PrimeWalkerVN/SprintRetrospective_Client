@@ -21,15 +21,8 @@ const AddBoard = props => {
   };
 
   return (
-    <div
-      className={
-        colorBorder + 'w-64 border-dashed border-2 flex flex-col items-center justify-center h-48'
-      }
-    >
-      <button
-        className={colorBg + 'rounded-full text-white text-2xl h-16 w-16 cursor-pointer'}
-        onClick={() => setAddModal(true)}
-      >
+    <div className={colorBorder + 'w-64 border-dashed border-2 flex flex-col items-center justify-center h-48'}>
+      <button className={colorBg + 'rounded-full text-white text-2xl h-16 w-16 cursor-pointer'} onClick={() => setAddModal(true)}>
         +
       </button>
       <div className={colorText + 'text-lg'}>Add board</div>

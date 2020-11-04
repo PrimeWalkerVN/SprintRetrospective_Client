@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import NotFound from './components/Notfound';
 import DashBoard from './components/Dashboard';
 import Login from './components/Auth/Login';
-import Teams from './components/Teams';
 import Loading from './components/Loading';
 import PrivateRoute from './components/Auth/privateRoute';
 import usersApi from './api/usersApi';
@@ -25,15 +24,16 @@ function App() {
   const token = localStorage.getItem('access_token');
   useEffect(() => {
     if (token) {
-      try {
-        const checkLogged = async () => {
+      const checkLogged = async () => {
+        try {
           const user = await usersApi.getMe();
+
           if (user) dispatch(setUserLogged(user));
-        };
-        checkLogged();
-      } catch (e) {
-        Notification('error', 'Error', e.message);
-      }
+        } catch (e) {
+          Notification('error', 'Error', e.message);
+        }
+      };
+      checkLogged();
     }
   }, [token, dispatch]);
   return (
@@ -45,7 +45,6 @@ function App() {
           <PrivateRouteAuth path="/register" component={Register} exact />
           <Redirect exact from="/" to="/dashboard" />
           <PrivateRoute path="/dashboard" component={DashBoard} />
-          <PrivateRoute path="/teams" component={Teams} />
           <Route component={NotFound} />
         </Switch>
       </Router>

@@ -38,14 +38,8 @@ const Login = () => {
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="w-1/4 box-border shadow-2xl px-20 flex flex-col items-center">
-        <span className="text-2xl font-bold py-10">LOGIN</span>
-        <Form
-          name="basic"
-          onFinish={onSubmitHandler}
-          className="flex flex-col"
-          {...formItemLayout}
-          size="large"
-        >
+        <span className="text-4xl font-bold py-10">LOGIN</span>
+        <Form name="basic" onFinish={onSubmitHandler} className="flex flex-col" {...formItemLayout} size="large">
           <Form.Item
             label="Username"
             name="username"
@@ -76,9 +70,7 @@ const Login = () => {
             <Input.Password />
           </Form.Item>
 
-          {errors && (
-            <Alert className="my-5" closable type="error" message="Error" description={errors} />
-          )}
+          {errors && <Alert className="my-5" closable type="error" message="Error" description={errors} />}
           <Form.Item className="self-center w-full">
             <Button className="w-full rounded-lg" type="primary" htmlType="submit">
               Submit
@@ -99,7 +91,7 @@ const Login = () => {
         </div>
 
         <Link className="pb-5 font-bold " to="/register">
-          Register?
+          If you don't have account? Register!
         </Link>
       </div>
     </div>

@@ -32,14 +32,8 @@ const Register = () => {
   return (
     <div className="w-full flex justify-center items-center h-screen">
       <div className="w-1/4 box-border shadow-2xl px-6 flex flex-col items-center">
-        <span className="text-3xl font-bold py-10">REGISTER</span>
-        <Form
-          name="basic"
-          onFinish={onSubmitHandler}
-          className="flex flex-col"
-          {...formItemLayout}
-          size="large"
-        >
+        <span className="text-4xl font-bold py-10">REGISTER</span>
+        <Form name="basic" onFinish={onSubmitHandler} className="flex flex-col" {...formItemLayout} size="large">
           <Form.Item
             label="Username"
             name="username"
@@ -120,9 +114,7 @@ const Register = () => {
           >
             <Input.Password />
           </Form.Item>
-          {errors && (
-            <Alert className="my-5" closable type="error" message="Error" description={errors} />
-          )}
+          {errors && <Alert className="my-5" closable type="error" message="Error" description={errors} />}
           <Form.Item className="self-center pt-10 w-full">
             <Button className="w-full" type="primary" htmlType="submit">
               Register

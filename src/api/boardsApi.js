@@ -11,6 +11,14 @@ const boardsApi = {
   deleteBoard: id => {
     const url = `/boards/${id}`;
     return axiosClient.delete(url);
+  },
+  createList: (id, params) => {
+    const url = `/boards/${id}/lists`;
+    return axiosClient.post(url, params);
+  },
+  getLists: id => {
+    const url = `/boards/${id}/lists`;
+    return axiosClient.get(url);
   }
 };
 

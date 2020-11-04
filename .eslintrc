@@ -18,7 +18,7 @@
         "endOfLine": "lf",
         "singleQuote": true,
         "tabWidth": 2,
-        "printWidth": 100,
+        "printWidth": 150,
         "useTabs": false
       }
     ],

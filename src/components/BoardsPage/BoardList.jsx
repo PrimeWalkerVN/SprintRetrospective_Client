@@ -1,10 +1,15 @@
 import { List } from 'antd';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import Board from './Board';
 
-const ListBoard = props => {
+const BoardList = props => {
   const { data, deleteBoardSubmit } = props;
+  const history = useHistory();
 
+  const clickDetailHandler = item => {
+    history.push({ pathname: '/dashboard/detail', state: { board: item } });
+  };
   return (
     <div className="w-full">
       <List
@@ -13,7 +18,7 @@ const ListBoard = props => {
         dataSource={data}
         renderItem={item => (
           <List.Item>
-            <Board item={item} deleteBoardSubmit={deleteBoardSubmit} />
+            <Board item={item} deleteBoardSubmit={deleteBoardSubmit} onClick={() => clickDetailHandler(item)} />
           </List.Item>
         )}
       />
@@ -21,4 +26,4 @@ const ListBoard = props => {
   );
 };
 
-export default ListBoard;
+export default BoardList;
