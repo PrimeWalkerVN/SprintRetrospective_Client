@@ -1,5 +1,5 @@
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Col, List, Row } from 'antd';
+import { DeleteOutlined } from '@ant-design/icons';
+import { Button, Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import listsApi from '../../api/listsApi';

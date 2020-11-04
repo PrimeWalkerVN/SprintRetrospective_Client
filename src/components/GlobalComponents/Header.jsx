@@ -3,10 +3,10 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React from 'react';
 
 const Header = props => {
-  const { name, username, logoutHandler } = props;
+  const { name, username, logoutHandler, profileHandler } = props;
   const menu = (
     <Menu>
-      <Menu.Item>Profile</Menu.Item>
+      <Menu.Item onClick={profileHandler}>Profile</Menu.Item>
       <Menu.Item onClick={logoutHandler}>Logout</Menu.Item>
     </Menu>
   );

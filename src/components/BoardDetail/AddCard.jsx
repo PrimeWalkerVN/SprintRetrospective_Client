@@ -24,6 +24,7 @@ const AddCard = props => {
       <Modal
         title="Add Card"
         centered
+        destroyOnClose
         visible={addModal}
         onCancel={handleCancel}
         okButtonProps={{ form: 'addForm', key: 'submit', htmlType: 'submit' }}

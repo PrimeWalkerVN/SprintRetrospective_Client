@@ -49,7 +49,7 @@ const BoardDetail = () => {
   const handleEditCard = async (id, params) => {
     dispatch(setIsLoading(true));
     try {
-      const res = await cardsApi.editCard(id, params);
+      await cardsApi.editCard(id, params);
       setFilters({ action: !filters.action });
     } catch (err) {
       Notification('error', 'error', err.message);

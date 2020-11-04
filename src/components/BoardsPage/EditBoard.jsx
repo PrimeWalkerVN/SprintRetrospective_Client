@@ -27,6 +27,7 @@ const EditBoard = props => {
       <Modal
         title="Edit Card"
         centered
+        destroyOnClose
         visible={editModal}
         onCancel={handleCancel}
         okButtonProps={{ form: 'editForm', key: 'submit', htmlType: 'submit' }}

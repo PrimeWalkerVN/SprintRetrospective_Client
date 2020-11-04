@@ -49,7 +49,6 @@ const BoardsPage = () => {
     dispatch(setIsLoading(false));
   };
   const editBoardHandler = async (id, params) => {
-    console.log(params);
     dispatch(setIsLoading(true));
     try {
       const res = await boardsApi.editBoard(id, params);
