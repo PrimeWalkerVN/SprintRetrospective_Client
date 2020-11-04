@@ -19,6 +19,10 @@ const boardsApi = {
   getLists: id => {
     const url = `/boards/${id}/lists`;
     return axiosClient.get(url);
+  },
+  editBoard: (id, params) => {
+    const url = `/boards/${id}`;
+    return axiosClient.put(url, params);
   }
 };
 

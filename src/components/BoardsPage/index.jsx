@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import boardsApi from '../../api/boardsApi';
 import { setIsLoading } from '../../redux/reducers/loadingReducer';
-import Notification from '../Notification';
+import Notification from '../GlobalComponents/Notification';
 import AddBoard from './AddBoard';
 import BoardList from './BoardList';
 
@@ -48,6 +48,18 @@ const BoardsPage = () => {
     }
     dispatch(setIsLoading(false));
   };
+  const editBoardHandler = async (id, params) => {
+    console.log(params);
+    dispatch(setIsLoading(true));
+    try {
+      const res = await boardsApi.editBoard(id, params);
+      setFilters({ action: !filters.action });
+      Notification('success', 'Edit board success', res.data.name);
+    } catch (err) {
+      Notification('error', 'error', err.message);
+    }
+    dispatch(setIsLoading(false));
+  };
   const deleteBoardHandler = async id => {
     dispatch(setIsLoading(true));
     try {
@@ -67,7 +79,7 @@ const BoardsPage = () => {
           <AddBoard color="purple" handleSubmit={addBoardHandler} />
         </div>
         <div style={{ flex: 0.8 }} className="flex flex-wrap px-10 w-full">
-          <BoardList data={boards} deleteBoardSubmit={deleteBoardHandler} />
+          <BoardList data={boards} deleteBoardSubmit={deleteBoardHandler} editBoardSubmit={editBoardHandler} />
         </div>
       </div>
     </div>

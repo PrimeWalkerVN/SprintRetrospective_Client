@@ -13,7 +13,7 @@ const Header = props => {
 
   return (
     <header className="flex justify-between items-center bg-blue-600 py-4 px-10">
-      <div className="text-white text-lg font-serif">{name}</div>
+      <div className="text-white text-2xl font-serif">{name}</div>
       <Dropdown className="cursor-pointer" overlay={menu} placement="bottomCenter">
         <div className="flex items-center">
           <span className="text-xl font-bold text-white mr-4">{username}</span>

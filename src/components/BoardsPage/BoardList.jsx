@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import Board from './Board';
 
 const BoardList = props => {
-  const { data, deleteBoardSubmit } = props;
+  const { data, deleteBoardSubmit, editBoardSubmit } = props;
   const history = useHistory();
 
   const clickDetailHandler = item => {
@@ -18,7 +18,7 @@ const BoardList = props => {
         dataSource={data}
         renderItem={item => (
           <List.Item>
-            <Board item={item} deleteBoardSubmit={deleteBoardSubmit} onClick={() => clickDetailHandler(item)} />
+            <Board item={item} deleteBoardSubmit={deleteBoardSubmit} editBoardSubmit={editBoardSubmit} onClick={() => clickDetailHandler(item)} />
           </List.Item>
         )}
       />

@@ -1,13 +1,17 @@
 import { Button, Card } from 'antd';
 import React from 'react';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
+import EditBoard from './EditBoard';
 const Board = props => {
-  const { item, deleteBoardSubmit, onClick } = props;
+  const { item, deleteBoardSubmit, editBoardSubmit, onClick } = props;
   return (
     <Card
       title={
-        <div className="hover:underline" onClick={onClick}>
-          {item.name}
+        <div className="flex justify-between items-center">
+          <div className="hover:underline" onClick={onClick}>
+            {item.name}
+          </div>
+          <EditBoard item={item} editBoardSubmit={editBoardSubmit} />
         </div>
       }
       headStyle={{ fontSize: '1.5rem' }}

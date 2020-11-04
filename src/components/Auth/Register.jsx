@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Button, Alert } from 'antd';
 import usersApi from '../../api/usersApi';
-import Notification from '../Notification';
+import Notification from '../GlobalComponents/Notification';
 import { useDispatch } from 'react-redux';
 import { setIsLoading } from '../../redux/reducers/loadingReducer';
 import { Link, useHistory } from 'react-router-dom';

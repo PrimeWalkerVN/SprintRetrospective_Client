@@ -5,7 +5,7 @@ import { Row, Col } from 'antd';
 import boardsApi from '../../api/boardsApi';
 import { setIsLoading } from '../../redux/reducers/loadingReducer';
 import { useDispatch } from 'react-redux';
-import Notification from '../Notification';
+import Notification from '../GlobalComponents/Notification';
 import CardsList from './CardsList';
 import AddCard from './AddCard';
 import listsApi from '../../api/listsApi';
@@ -46,10 +46,20 @@ const BoardDetail = () => {
     }
     dispatch(setIsLoading(false));
   };
+  const handleEditCard = async (id, params) => {
+    dispatch(setIsLoading(true));
+    try {
+      const res = await cardsApi.editCard(id, params);
+      setFilters({ action: !filters.action });
+    } catch (err) {
+      Notification('error', 'error', err.message);
+    }
+    dispatch(setIsLoading(false));
+  };
   const handleDeleteCard = async id => {
     dispatch(setIsLoading(true));
     try {
-      const res = await cardsApi.deleteCard(id);
+      await cardsApi.deleteCard(id);
       setFilters({ action: !filters.action });
     } catch (err) {
       Notification('error', 'error', err.message);
@@ -75,7 +85,7 @@ const BoardDetail = () => {
       </Row>
       <Row gutter={[16, 16]} className="pb-10">
         {lists.map((item, index) => (
-          <CardsList color={colors[index]} filters={filters} list={item} deleteCardSubmit={handleDeleteCard} />
+          <CardsList color={colors[index]} filters={filters} list={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
         ))}
       </Row>
     </div>
