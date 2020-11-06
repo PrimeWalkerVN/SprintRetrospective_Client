@@ -27,7 +27,7 @@ const BoardDetail = () => {
         const listsRes = await boardsApi.getLists(board._id);
         setLists(listsRes.data);
       } catch (err) {
-        Notification('error', 'error', err.message);
+        Notification('error', 'error', err.response.data.message);
       }
       dispatch(setIsLoading(false));
     };
@@ -41,7 +41,7 @@ const BoardDetail = () => {
       await listsApi.addCard(id, params);
       setFilters({ action: !filters.action });
     } catch (err) {
-      Notification('error', 'error', err.message);
+      Notification('error', 'error', err.response.data.message);
     }
     dispatch(setIsLoading(false));
   };
@@ -61,7 +61,7 @@ const BoardDetail = () => {
       await cardsApi.deleteCard(id);
       setFilters({ action: !filters.action });
     } catch (err) {
-      Notification('error', 'error', err.message);
+      Notification('error', 'error', err.response.data.message);
     }
     dispatch(setIsLoading(false));
   };
