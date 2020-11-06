@@ -17,13 +17,13 @@ const history = createBrowserHistory();
 function App() {
   const isLoading = useSelector(state => state.loading.isLoading);
   const dispatch = useDispatch();
+  const query = queryString.parse(history.location.search);
+  if (query.token) {
+    localStorage.setItem('access_token', query.token);
+  }
 
   const token = localStorage.getItem('access_token');
   useEffect(() => {
-    const query = queryString.parse(history.location.search);
-    if (query.token) {
-      localStorage.setItem('access_token', query.token);
-    }
     if (token) {
       const checkLogged = async () => {
         dispatch(setIsLoading(true));
