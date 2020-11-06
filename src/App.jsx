@@ -36,7 +36,6 @@ function App() {
           }
         } catch (e) {
           await dispatch(setLogged(false));
-          await dispatch(setUser(null));
         }
         dispatch(setIsLoading(false));
       };
