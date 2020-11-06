@@ -7,7 +7,7 @@ const userSlice = createSlice({
     logged: false
   },
   reducers: {
-    setUser: (state, action) => {
+    setUserLogin: (state, action) => {
       state.user = action.payload.user;
       const token = action.payload.token;
       localStorage.setItem('access_token', token);
@@ -18,13 +18,15 @@ const userSlice = createSlice({
       state.logged = false;
       localStorage.clear();
     },
-    setUserLogged: (state, action) => {
+    setUser: (state, action) => {
       state.user = action.payload.user;
-      state.logged = true;
+    },
+    setLogged: (state, action) => {
+      state.logged = action.payload;
     }
   }
 });
 
 const { reducer: userReducer, actions } = userSlice;
-export const { setUser, setUserLogged, logout } = actions;
+export const { setUser, setUserLogin, setLogged, logout } = actions;
 export default userReducer;

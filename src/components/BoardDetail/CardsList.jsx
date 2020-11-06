@@ -29,11 +29,6 @@ const CardsList = props => {
   }, [filters, list, dispatch]);
   return (
     <Col span={8}>
-      {/* <List
-        className="overflow-y-scroll"
-        dataSource={cards}
-        renderItem={item => <Row className={styleCard + `bg-${color}-600`}>{item.content}</Row>}
-      /> */}
       {cards.map(item => (
         <Row className={styleCard + `bg-${color}-600 flex flex-col px-2`}>
           <div className="self-center">{item.content}</div>

@@ -38,9 +38,8 @@ const BoardDetail = () => {
   const handleAddCards = async (id, params) => {
     dispatch(setIsLoading(true));
     try {
-      const res = await listsApi.addCard(id, params);
+      await listsApi.addCard(id, params);
       setFilters({ action: !filters.action });
-      Notification('success', 'Add card success', res.data.name);
     } catch (err) {
       Notification('error', 'error', err.message);
     }

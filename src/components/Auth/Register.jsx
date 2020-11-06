@@ -30,8 +30,8 @@ const Register = () => {
   };
 
   return (
-    <div className="w-full flex justify-center items-center h-screen">
-      <div className="w-1/4 box-border shadow-2xl px-6 flex flex-col items-center">
+    <div className="w-full flex justify-center items-center h-screen bg-gray-100">
+      <div className="w-1/4 box-border shadow-2xl px-6 flex flex-col items-center bg-white">
         <span className="text-4xl font-bold py-10">REGISTER</span>
         <Form name="basic" onFinish={onSubmitHandler} className="flex flex-col" {...formItemLayout} size="large">
           <Form.Item
