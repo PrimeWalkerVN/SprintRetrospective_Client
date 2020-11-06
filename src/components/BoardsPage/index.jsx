@@ -70,6 +70,11 @@ const BoardsPage = () => {
     }
     dispatch(setIsLoading(false));
   };
+
+  const copyLinkHandler = id => {
+    navigator.clipboard.writeText(`${process.env.REACT_APP_URL}/public-board/${id}`);
+    Notification('success', 'Copy', 'Copy to clipboard success');
+  };
   return (
     <div className="w-full pt-12 flex flex-col">
       <div className="text-center text-4xl text-purple-800">MY BOARDS</div>
@@ -78,7 +83,7 @@ const BoardsPage = () => {
           <AddBoard color="purple" handleSubmit={addBoardHandler} />
         </div>
         <div style={{ flex: 0.8 }} className="flex flex-wrap px-10 w-full">
-          <BoardList data={boards} deleteBoardSubmit={deleteBoardHandler} editBoardSubmit={editBoardHandler} />
+          <BoardList data={boards} deleteBoardSubmit={deleteBoardHandler} editBoardSubmit={editBoardHandler} copyLinkSubmit={copyLinkHandler} />
         </div>
       </div>
     </div>

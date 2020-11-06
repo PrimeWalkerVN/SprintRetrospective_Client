@@ -3,7 +3,7 @@ import React from 'react';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 import EditBoard from './EditBoard';
 const Board = props => {
-  const { item, deleteBoardSubmit, editBoardSubmit, onClick } = props;
+  const { item, deleteBoardSubmit, editBoardSubmit, copyLinkSubmit, onClick } = props;
   return (
     <Card
       title={
@@ -27,7 +27,7 @@ const Board = props => {
           <span className="font-bold pr-2">Lists number:</span> {item.lists.length}
         </div>
         <div className="flex flex-row justify-between pt-4 w-full self-center">
-          <Button type="primary" size="small" className="flex items-center py-3" icon={<CopyOutlined />}>
+          <Button type="primary" size="small" className="flex items-center py-3" onClick={() => copyLinkSubmit(item._id)} icon={<CopyOutlined />}>
             copy url
           </Button>
           <Button type="danger" size="small" className="flex items-center py-3" icon={<DeleteOutlined />} onClick={() => deleteBoardSubmit(item._id)}>

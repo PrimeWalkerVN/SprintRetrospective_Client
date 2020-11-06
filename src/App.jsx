@@ -6,6 +6,7 @@ import NotFound from './components/GlobalComponents/Notfound';
 import DashBoard from './components/Dashboard';
 import Login from './components/Auth/Login';
 import Loading from './components/GlobalComponents/Loading';
+import PublicBoardDetail from './components/PublicBoardDetail';
 import PrivateRoute from './components/Auth/privateRoute';
 import usersApi from './api/usersApi';
 import { setUser, setLogged } from './redux/reducers/userReducer';
@@ -51,6 +52,7 @@ function App() {
           <PrivateRouteAuth path="/register" component={Register} exact />
           <Redirect exact from="/" to="/dashboard" />
           <PrivateRoute path="/dashboard" component={DashBoard} />
+          <Route path="/public-board/detail/:id" component={PublicBoardDetail} />
           <Route component={NotFound} />
         </Switch>
       </Router>

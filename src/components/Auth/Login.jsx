@@ -19,7 +19,7 @@ const Login = () => {
       const res = await usersApi.login(values);
       dispatch(setUserLogin(res.data));
       history.push('/dashboard');
-      Notification('success', 'Login', res.status);
+      Notification('success', 'Hi', res.data.user.fullName);
     } catch (err) {
       if (err.response) setErrors(err.response.data.message.toString());
       else setErrors(err);

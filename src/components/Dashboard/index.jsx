@@ -21,8 +21,8 @@ const DashBoard = () => {
     <div className="w-full">
       <Header name="Sprint Retrospective" username={user.fullName} logoutHandler={logoutHandler} profileHandler={profileHandler} />
       <Switch>
-        <PrivateRoute exact path="/dashboard/detail" component={BoardDetail} />
-        <PrivateRoute exact path="/dashboard/profile" component={ProfilePage} />
+        <PrivateRoute path="/dashboard/detail" component={BoardDetail} />
+        <PrivateRoute path="/dashboard/profile" component={ProfilePage} />
         <PrivateRoute path="/" component={BoardsPage} />
       </Switch>
     </div>
