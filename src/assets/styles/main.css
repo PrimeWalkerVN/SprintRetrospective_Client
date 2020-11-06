@@ -4499,10 +4499,6 @@ video {
   overflow: auto;
 }
 
-.overflow-y-scroll{
-  overflow-y: scroll;
-}
-
 .py-2{
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;

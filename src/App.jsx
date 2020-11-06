@@ -25,8 +25,8 @@ function App() {
       localStorage.setItem('access_token', query.token);
     }
     if (token) {
-      dispatch(setIsLoading(true));
       const checkLogged = async () => {
+        dispatch(setIsLoading(true));
         try {
           const user = await usersApi.getMe();
 
