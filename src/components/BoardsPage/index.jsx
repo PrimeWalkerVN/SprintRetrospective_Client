@@ -44,7 +44,7 @@ const BoardsPage = () => {
       setFilters({ action: !filters.action });
       Notification('success', 'Add board success', res.data.name);
     } catch (err) {
-      Notification('error', 'error', err.message);
+      Notification('error', 'error', err.response.data.message);
     }
     dispatch(setIsLoading(false));
   };
@@ -55,7 +55,7 @@ const BoardsPage = () => {
       setFilters({ action: !filters.action });
       Notification('success', 'Edit board success', res.data.name);
     } catch (err) {
-      Notification('error', 'error', err.message);
+      Notification('error', 'error', err.response.data.message);
     }
     dispatch(setIsLoading(false));
   };
@@ -66,13 +66,13 @@ const BoardsPage = () => {
       setFilters({ add: !filters.add });
       Notification('success', 'Delete board', res.message);
     } catch (err) {
-      Notification('error', 'error', err.message);
+      Notification('error', 'error', err.response.data.message);
     }
     dispatch(setIsLoading(false));
   };
 
   const copyLinkHandler = id => {
-    navigator.clipboard.writeText(`${process.env.REACT_APP_URL}/public-board/${id}`);
+    navigator.clipboard.writeText(`${process.env.REACT_APP_URL}/public-board/detail/${id}`);
     Notification('success', 'Copy', 'Copy to clipboard success');
   };
   return (

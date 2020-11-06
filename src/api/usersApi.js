@@ -15,6 +15,10 @@ const usersApi = {
   loginWithGoogle: () => {
     const url = '/users/auth/google';
     return axiosClient.get(url);
+  },
+  updateProfile: params => {
+    const url = '/users/update-profile';
+    return axiosClient.put(url, params);
   }
 };
 
