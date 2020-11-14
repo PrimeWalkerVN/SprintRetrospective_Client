@@ -8,17 +8,19 @@ import { setUserLogin } from '../../redux/reducers/userReducer';
 import { Link, useHistory } from 'react-router-dom';
 import facebookLogo from '../../assets/images/facebook.svg';
 import googleLogo from '../../assets/images/google.svg';
+import queryString from 'query-string';
 const Login = () => {
   const history = useHistory();
   const [errors, setErrors] = useState();
   const dispatch = useDispatch();
+  const query = queryString.parse(history.location.search);
 
   const onSubmitHandler = async values => {
     dispatch(setIsLoading(true));
     try {
       const res = await usersApi.login(values);
       dispatch(setUserLogin(res.data));
-      history.push('/dashboard');
+      history.push(query.next);
       Notification('success', 'Hi', res.data.user.fullName);
     } catch (err) {
       if (err.response) setErrors(err.response.data.message.toString());

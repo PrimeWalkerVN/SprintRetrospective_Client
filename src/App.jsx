@@ -52,7 +52,7 @@ function App() {
           <PrivateRouteAuth path="/register" component={Register} exact />
           <Redirect exact from="/" to="/dashboard" />
           <PrivateRoute path="/dashboard" component={DashBoard} />
-          <Route path="/public-board/detail/:id" component={PublicBoardDetail} />
+          <PrivateRoute path="/public-board/detail/:id" component={PublicBoardDetail} />
           <Route component={NotFound} />
         </Switch>
       </Router>
