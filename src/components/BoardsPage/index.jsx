@@ -42,7 +42,7 @@ const BoardsPage = () => {
       const res = await boardsApi.addBoard(params);
       await createListsDefault(res.data._id);
       setFilters({ action: !filters.action });
-      Notification('success', 'Add board success', res.data.name);
+      Notification('success', 'Add board', '');
     } catch (err) {
       Notification('error', 'error', err.response.data.message);
     }

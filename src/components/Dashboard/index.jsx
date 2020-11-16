@@ -17,9 +17,18 @@ const DashBoard = () => {
   const profileHandler = () => {
     history.push('/dashboard/profile');
   };
+  const redirectHomeHandler = () => {
+    history.push('/dashboard');
+  };
   return (
     <div className="w-full">
-      <Header name="Sprint Retrospective" username={user.fullName} logoutHandler={logoutHandler} profileHandler={profileHandler} />
+      <Header
+        redirectHomeHandler={redirectHomeHandler}
+        name="Sprint Retrospective"
+        username={user.fullName}
+        logoutHandler={logoutHandler}
+        profileHandler={profileHandler}
+      />
       <Switch>
         <PrivateRoute path="/dashboard/detail" component={BoardDetail} />
         <PrivateRoute path="/dashboard/profile" component={ProfilePage} />

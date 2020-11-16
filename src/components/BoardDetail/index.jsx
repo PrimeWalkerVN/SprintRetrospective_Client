@@ -1,15 +1,16 @@
+import { Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import NavBar from './NavBar';
-import { Row, Col } from 'antd';
-import boardsApi from '../../api/boardsApi';
-import { setIsLoading } from '../../redux/reducers/loadingReducer';
+import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import Notification from '../GlobalComponents/Notification';
-import CardsList from './CardsList';
-import AddCard from './AddCard';
-import listsApi from '../../api/listsApi';
+import { useLocation } from 'react-router-dom';
+import boardsApi from '../../api/boardsApi';
 import cardsApi from '../../api/cardsApi';
+import listsApi from '../../api/listsApi';
+import { setIsLoading } from '../../redux/reducers/loadingReducer';
+import Notification from '../GlobalComponents/Notification';
+import AddCard from './AddCard';
+import CardsList from './CardsList';
+import NavBar from './NavBar';
 
 const BoardDetail = () => {
   const location = useLocation();
@@ -25,7 +26,14 @@ const BoardDetail = () => {
       dispatch(setIsLoading(true));
       try {
         const listsRes = await boardsApi.getLists(board._id);
-        setLists(listsRes.data);
+        const lists = await Promise.all(
+          listsRes.data.map(async item => {
+            const data = await listsApi.getCards(item._id);
+            const obj = { cards: data.data };
+            return Object.assign(item, obj);
+          })
+        );
+        setLists(lists);
       } catch (err) {
         Notification('error', 'error', err.response.data.message);
       }
@@ -33,7 +41,7 @@ const BoardDetail = () => {
     };
 
     getLists();
-  }, [board, dispatch]);
+  }, [board, dispatch, filters]);
 
   const handleAddCards = async (id, params) => {
     dispatch(setIsLoading(true));
@@ -65,6 +73,35 @@ const BoardDetail = () => {
     }
     dispatch(setIsLoading(false));
   };
+
+  const ondragEnd = result => {
+    const { source, destination } = result;
+    // dropped outside the list
+    if (!destination) {
+      return;
+    }
+    if (source.droppableId === destination.droppableId) {
+      const items = reorder(getCardsOnList(source.droppableId), source.index, destination.index);
+      setLists(
+        lists.map(item => {
+          if (item._id === source.droppableId) item.cards = items;
+          return item;
+        })
+      );
+    } else {
+      const result = move(getCardsOnList(source.droppableId), getCardsOnList(destination.droppableId), source, destination);
+      setLists(
+        lists.map(item => {
+          if (item._id === source.droppableId) item.cards = result.source;
+          if (item._id === destination.droppableId) item.cards = result.dest;
+          return item;
+        })
+      );
+    }
+  };
+
+  const getCardsOnList = id => lists.find(item => item._id === id).cards;
+
   return (
     <div className=" w-full overflow-auto h-screen ">
       <NavBar name={board.name} />
@@ -83,12 +120,54 @@ const BoardDetail = () => {
         ))}
       </Row>
       <Row gutter={[16, 16]} className="pb-10">
-        {lists.map((item, index) => (
-          <CardsList color={colors[index]} filters={filters} list={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
-        ))}
+        <DragDropContext onDragEnd={ondragEnd}>
+          {lists.map((item, index) => (
+            <CardsList color={colors[index]} filters={filters} item={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
+          ))}
+        </DragDropContext>
       </Row>
     </div>
   );
 };
 
 export default BoardDetail;
+
+//Extra function
+const reorder = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+
+  return result.map((item, index) => {
+    cardsApi.editCard(item._id, { order: index });
+    item.order = index;
+    return item;
+  });
+};
+
+/**
+ * Moves an item from one list to another list.
+ */
+const move = (source, destination, droppableSource, droppableDestination) => {
+  const sourceClone = Array.from(source);
+  const destClone = Array.from(destination);
+  const [removed] = sourceClone.splice(droppableSource.index, 1);
+
+  destClone.splice(droppableDestination.index, 0, removed);
+
+  cardsApi.editCard(removed._id, { listId: droppableDestination.droppableId });
+
+  const result = {};
+  result['source'] = sourceClone.map((item, index) => {
+    item.order = index;
+    cardsApi.editCard(item._id, { order: index });
+    return item;
+  });
+  result['dest'] = destClone.map((item, index) => {
+    item.order = index;
+    cardsApi.editCard(item._id, { order: index });
+    return item;
+  });
+
+  return result;
+};

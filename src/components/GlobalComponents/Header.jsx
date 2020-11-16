@@ -3,7 +3,7 @@ import Avatar from 'antd/lib/avatar/avatar';
 import React from 'react';
 
 const Header = props => {
-  const { name, username, logoutHandler, profileHandler } = props;
+  const { name, username, logoutHandler, profileHandler, redirectHomeHandler } = props;
   const menu = (
     <Menu>
       <Menu.Item onClick={profileHandler}>Profile</Menu.Item>
@@ -12,7 +12,7 @@ const Header = props => {
   );
 
   return (
-    <header className="flex justify-between items-center bg-blue-600 py-4 px-10">
+    <header onClick={redirectHomeHandler} className="flex justify-between items-center bg-blue-600 py-4 px-10 cursor-pointer">
       <div className="text-white text-2xl font-serif">{name}</div>
       <Dropdown className="cursor-pointer" overlay={menu} placement="bottomCenter">
         <div className="flex items-center">
