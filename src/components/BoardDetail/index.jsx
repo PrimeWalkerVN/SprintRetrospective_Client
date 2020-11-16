@@ -63,15 +63,22 @@ const BoardDetail = () => {
     }
     dispatch(setIsLoading(false));
   };
-  const handleDeleteCard = async id => {
-    dispatch(setIsLoading(true));
+  const handleDeleteCard = id => {
     try {
-      await cardsApi.deleteCard(id);
-      setFilters({ action: !filters.action });
+      cardsApi.deleteCard(id);
     } catch (err) {
       Notification('error', 'error', err.response.data.message);
     }
-    dispatch(setIsLoading(false));
+    const data = lists.map(item => {
+      return {
+        ...item,
+        cards: item.cards.filter(card => {
+          return card._id !== id;
+        })
+      };
+    });
+
+    setLists(data);
   };
 
   const ondragEnd = result => {
