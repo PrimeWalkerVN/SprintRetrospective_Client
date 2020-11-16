@@ -53,15 +53,20 @@ const BoardDetail = () => {
     }
     dispatch(setIsLoading(false));
   };
-  const handleEditCard = async (id, params) => {
-    dispatch(setIsLoading(true));
+  const handleEditCard = (id, params) => {
     try {
-      await cardsApi.editCard(id, params);
-      setFilters({ action: !filters.action });
+      cardsApi.editCard(id, params);
     } catch (err) {
       Notification('error', 'error', err.message);
     }
-    dispatch(setIsLoading(false));
+
+    const data = lists.map(item => {
+      return {
+        ...item,
+        cards: item.cards.map(card => (card._id === id ? { ...card, content: params.content } : card))
+      };
+    });
+    setLists(data);
   };
   const handleDeleteCard = id => {
     try {

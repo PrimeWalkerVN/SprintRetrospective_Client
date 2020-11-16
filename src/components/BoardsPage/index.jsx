@@ -48,27 +48,25 @@ const BoardsPage = () => {
     }
     dispatch(setIsLoading(false));
   };
-  const editBoardHandler = async (id, params) => {
-    dispatch(setIsLoading(true));
+  const editBoardHandler = (id, params) => {
     try {
-      const res = await boardsApi.editBoard(id, params);
-      setFilters({ action: !filters.action });
-      Notification('success', 'Edit board success', res.data.name);
+      boardsApi.editBoard(id, params);
     } catch (err) {
       Notification('error', 'error', err.response.data.message);
     }
-    dispatch(setIsLoading(false));
+    const newBoards = boards.map(item => (item._id === id ? { ...item, name: params.name } : item));
+
+    setBoards(newBoards);
   };
-  const deleteBoardHandler = async id => {
-    dispatch(setIsLoading(true));
+  const deleteBoardHandler = id => {
     try {
-      const res = await boardsApi.deleteBoard(id);
-      setFilters({ add: !filters.add });
-      Notification('success', 'Delete board', res.message);
+      boardsApi.deleteBoard(id);
     } catch (err) {
       Notification('error', 'error', err.response.data.message);
     }
-    dispatch(setIsLoading(false));
+    const newBoards = boards.filter(item => item._id !== id);
+
+    setBoards(newBoards);
   };
 
   const copyLinkHandler = id => {
