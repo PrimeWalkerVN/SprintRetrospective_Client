@@ -18,7 +18,7 @@ const BoardDetail = () => {
   const colors = ['blue', 'green', 'purple', 'blue', 'green'];
   const styleLabel = 'text-xl font-bold flex justify-center w-full ';
   const [lists, setLists] = useState([]);
-  const [filters, setFilters] = useState({ action: false });
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const BoardDetail = () => {
     };
 
     getLists();
-  }, [board, dispatch, filters]);
+  }, [board, dispatch]);
 
   const handleAddCards = async (id, params) => {
     dispatch(setIsLoading(true));
@@ -139,7 +139,7 @@ const BoardDetail = () => {
       <Row gutter={[16, 16]} className="pb-10">
         <DragDropContext onDragEnd={ondragEnd}>
           {lists.map((item, index) => (
-            <CardsList color={colors[index]} filters={filters} item={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
+            <CardsList color={colors[index]} item={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
           ))}
         </DragDropContext>
       </Row>

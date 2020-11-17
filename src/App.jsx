@@ -48,11 +48,12 @@ function App() {
       {isLoading && <Loading />}
       <Router history={history}>
         <Switch>
-          <PrivateRouteAuth path="/login" component={Login} exact />
-          <PrivateRouteAuth path="/register" component={Register} exact />
-          <Redirect exact from="/" to="/dashboard" />
-          <PrivateRoute path="/dashboard" component={DashBoard} />
+          <PrivateRouteAuth path="/login" component={Login} />
+          <PrivateRouteAuth path="/register" component={Register} />
           <PrivateRoute path="/public-board/detail/:id" component={PublicBoardDetail} />
+          <PrivateRoute path="/dashboard" component={DashBoard} />
+
+          <Redirect exact from="/" to="/dashboard" />
           <Route component={NotFound} />
         </Switch>
       </Router>
