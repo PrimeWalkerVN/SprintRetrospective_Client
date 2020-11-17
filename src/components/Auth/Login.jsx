@@ -31,7 +31,7 @@ const Login = () => {
 
   const formItemLayout = {
     labelCol: {
-      span: 7
+      span: 8
     },
     wrapperCol: {
       span: 24
@@ -39,11 +39,12 @@ const Login = () => {
   };
   return (
     <div className="w-full flex justify-center items-center h-screen bg-gray-100">
-      <div className="w-1/4 box-border shadow-2xl px-20 flex flex-col items-center bg-white">
+      <div className="w-1/4 box-border shadow-2xl px-10 flex flex-col items-center bg-white">
         <span className="text-4xl font-bold py-10">LOGIN</span>
         <Form name="basic" onFinish={onSubmitHandler} className="flex flex-col" {...formItemLayout} size="large">
           <Form.Item
             label="Username"
+            labelAlign="left"
             name="username"
             rules={[
               {
@@ -60,6 +61,7 @@ const Login = () => {
           </Form.Item>
 
           <Form.Item
+            labelAlign="left"
             label="Password"
             name="password"
             rules={[

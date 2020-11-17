@@ -46,8 +46,13 @@ const BoardDetail = () => {
   const handleAddCards = async (id, params) => {
     dispatch(setIsLoading(true));
     try {
-      await listsApi.addCard(id, params);
-      setFilters({ action: !filters.action });
+      const res = await listsApi.addCard(id, params);
+      setLists(
+        lists.map(item => {
+          if (item._id === id) item.cards.push(res.data);
+          return item;
+        })
+      );
     } catch (err) {
       Notification('error', 'error', err.response.data.message);
     }

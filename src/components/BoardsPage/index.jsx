@@ -30,9 +30,9 @@ const BoardsPage = () => {
     const params1 = { name: 'Went Well' };
     const params2 = { name: 'To Improve' };
     const params3 = { name: 'Action items' };
-    await boardsApi.createList(id, params1);
-    await boardsApi.createList(id, params2);
-    await boardsApi.createList(id, params3);
+    boardsApi.createList(id, params1);
+    boardsApi.createList(id, params2);
+    boardsApi.createList(id, params3);
   };
 
   const addBoardHandler = async params => {
@@ -40,7 +40,7 @@ const BoardsPage = () => {
     try {
       params.userId = user._id;
       const res = await boardsApi.addBoard(params);
-      await createListsDefault(res.data._id);
+      createListsDefault(res.data._id);
       setFilters({ action: !filters.action });
       Notification('success', 'Add board', '');
     } catch (err) {

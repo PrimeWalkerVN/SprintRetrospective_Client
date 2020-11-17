@@ -32,11 +32,11 @@ function App() {
           const user = await usersApi.getMe();
 
           if (user) {
-            await dispatch(setUser(user));
-            await dispatch(setLogged(true));
+            dispatch(setUser(user));
+            dispatch(setLogged(true));
           }
         } catch (e) {
-          await dispatch(setLogged(false));
+          dispatch(setLogged(false));
         }
         dispatch(setIsLoading(false));
       };
