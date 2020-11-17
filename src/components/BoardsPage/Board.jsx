@@ -2,13 +2,14 @@ import { Button, Card } from 'antd';
 import React from 'react';
 import { CopyOutlined, DeleteOutlined } from '@ant-design/icons';
 import EditBoard from './EditBoard';
+import moment from 'moment';
 const Board = props => {
   const { item, deleteBoardSubmit, editBoardSubmit, copyLinkSubmit, onClick } = props;
   return (
     <Card
       title={
         <div className="flex justify-between items-center">
-          <div className="hover:underline" onClick={onClick}>
+          <div className="hover:underline truncate mr-4" onClick={onClick}>
             {item.name}
           </div>
           <EditBoard item={item} editBoardSubmit={editBoardSubmit} />
@@ -21,7 +22,7 @@ const Board = props => {
     >
       <div className="w-full flex flex-col items-start truncate">
         <div>
-          <span className="font-bold pr-2">Created at:</span> {item.createdAt}
+          <span className="font-bold pr-2">Created at:</span> {moment(item.createdAt).format('MMMM Do YYYY')}
         </div>
         <div>
           <span className="font-bold pr-2">Lists number:</span> {item.lists.length}
