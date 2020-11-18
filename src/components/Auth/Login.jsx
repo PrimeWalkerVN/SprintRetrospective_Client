@@ -24,7 +24,7 @@ const Login = () => {
       Notification('success', 'Hi', res.data.user.fullName);
     } catch (err) {
       if (err.response) setErrors(err.response.data.message.toString());
-      else setErrors(err);
+      else setErrors('Something went wrong!');
     }
     dispatch(setIsLoading(false));
   };
