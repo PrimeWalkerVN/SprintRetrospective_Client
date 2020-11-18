@@ -2,7 +2,7 @@ import { Col, Row } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import boardsApi from '../../api/boardsApi';
 import cardsApi from '../../api/cardsApi';
 import listsApi from '../../api/listsApi';
@@ -14,7 +14,8 @@ import NavBar from './NavBar';
 
 const BoardDetail = () => {
   const location = useLocation();
-  const board = location.state.board;
+  let board = '';
+  if (location.state) board = location.state.board;
   const colors = ['blue', 'green', 'purple', 'blue', 'green'];
   const styleLabel = 'text-xl font-bold flex justify-center w-full ';
   const [lists, setLists] = useState([]);
@@ -24,6 +25,7 @@ const BoardDetail = () => {
   useEffect(() => {
     const getLists = async () => {
       dispatch(setIsLoading(true));
+      if (board === '') return;
       try {
         const listsRes = await boardsApi.getLists(board._id);
         const lists = await Promise.all(
@@ -120,29 +122,35 @@ const BoardDetail = () => {
   const getCardsOnList = id => lists.find(item => item._id === id).cards;
 
   return (
-    <div className=" w-full overflow-auto h-screen ">
-      <NavBar name={board.name} />
-      <Row gutter={[16, 16]}>
-        {lists.map((item, index) => (
-          <Col span={8}>
-            <div className={styleLabel + `bg-${colors[index]}-100`}>{item.name}</div>
-          </Col>
-        ))}
-      </Row>
-      <Row gutter={[16, 16]}>
-        {lists.map((item, index) => (
-          <Col span={8}>
-            <AddCard color={colors[index]} item={item} onSubmit={handleAddCards} />
-          </Col>
-        ))}
-      </Row>
-      <Row gutter={[16, 16]} className="pb-10">
-        <DragDropContext onDragEnd={ondragEnd}>
-          {lists.map((item, index) => (
-            <CardsList color={colors[index]} item={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
-          ))}
-        </DragDropContext>
-      </Row>
+    <div>
+      {board === '' ? (
+        <Redirect to="/dashboard" />
+      ) : (
+        <div className=" w-full overflow-auto h-screen ">
+          <NavBar name={board.name} />
+          <Row gutter={[16, 16]}>
+            {lists.map((item, index) => (
+              <Col span={8}>
+                <div className={styleLabel + `bg-${colors[index]}-100`}>{item.name}</div>
+              </Col>
+            ))}
+          </Row>
+          <Row gutter={[16, 16]}>
+            {lists.map((item, index) => (
+              <Col span={8}>
+                <AddCard color={colors[index]} item={item} onSubmit={handleAddCards} />
+              </Col>
+            ))}
+          </Row>
+          <Row gutter={[16, 16]} className="pb-10">
+            <DragDropContext onDragEnd={ondragEnd}>
+              {lists.map((item, index) => (
+                <CardsList color={colors[index]} item={item} deleteCardSubmit={handleDeleteCard} editCardSubmit={handleEditCard} />
+              ))}
+            </DragDropContext>
+          </Row>
+        </div>
+      )}
     </div>
   );
 };

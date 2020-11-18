@@ -48,7 +48,6 @@ function App() {
   }, [token, dispatch]);
   return (
     <div className="container max-w-full">
-      {isLoading && <Loading />}
       {loading ? (
         <Loading />
       ) : (
@@ -63,6 +62,7 @@ function App() {
           </Switch>
         </Router>
       )}
+      {isLoading && <Loading />}
     </div>
   );
 }
